@@ -7,7 +7,8 @@ import {
 } from '@backstage/frontend-plugin-api';
 import { EntityCardBlueprint, EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import CakeIcon from '@material-ui/icons/Cake';
-import { Entity } from '@backstage/catalog-model/index';
+import { Entity } from '@backstage/catalog-model';
+import { FormFieldBlueprint } from '@backstage/plugin-scaffolder-react/alpha';
 
 const fooRouteRef = createRouteRef();
 
@@ -51,9 +52,17 @@ export const fooNavItem = NavItemBlueprint.make({
     routeRef: fooRouteRef,
   },
 });
-const fooPlugin = createFrontendPlugin({
+
+const fooField = FormFieldBlueprint.make({
+  name: 'catalog-filter',
+  params: {
+    field: () => import('./fields/FooFieldExtension').then((m) => m.FooField),
+  },
+});
+
+const fooPlugin: any = createFrontendPlugin({
   id: 'foo',
-  extensions: [fooNavItem, fooPage, fooTabExtension, fooCard],
+  extensions: [fooNavItem, fooPage, fooTabExtension, fooCard, fooField],
 });
 
 

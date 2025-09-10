@@ -60,9 +60,16 @@ const fooField = FormFieldBlueprint.make({
   },
 });
 
+const githubOrgsField = FormFieldBlueprint.make({
+  name: 'github-orgs',
+  params: {
+    field: () => import('./fields/GithubOrgsFieldExtension').then((m) => m.GithubOrgsField),
+  },
+});
+
 const fooPlugin: any = createFrontendPlugin({
   id: 'foo',
-  extensions: [fooNavItem, fooPage, fooTabExtension, fooCard, fooField],
+  extensions: [fooNavItem, fooPage, fooTabExtension, fooCard, fooField, githubOrgsField],
 });
 
 
